@@ -22,9 +22,6 @@
 
 package smpl;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Data of a facility (resource) in the 'smpl' simulation subsystem.
  * <p>
@@ -37,7 +34,7 @@ final class FacilityData
 	private final int blockNumber;
 
 	private final String name;
-	private final List<FacilityServer> servers;
+	private final FacilityServer[] servers;
 
 	private int busyServers;
 
@@ -63,12 +60,11 @@ final class FacilityData
 
 		this.name = name;
 
-		FacilityServer[] serversArray = new FacilityServer[totalServers];
+		servers = new FacilityServer[totalServers];
 		for (int i = 0; i < totalServers; i++)
 		{
-			serversArray[i] = new FacilityServer(blockNumber + 2 + i);
+			servers[i] = new FacilityServer(blockNumber + 2 + i);
 		}
-		servers = Arrays.asList(serversArray);
 	}
 
 	/**
@@ -92,7 +88,7 @@ final class FacilityData
 	public final int getTotalServers()
 	{
 		// this was l1[f] in Myron H. MacDougall's version of 'smpl', and NOFSERV(f) in Teemu Kerola's version.
-		return servers.size();
+		return servers.length;
 	}
 
 	public final int getBusyServers()
@@ -114,7 +110,7 @@ final class FacilityData
 	public final FacilityServer getServer(int serverNumber)
 	{
 		// this corresponded to f+2+n in the C version 'smpl'.
-		return servers.get(serverNumber);
+		return servers[serverNumber];
 	}
 
 	public final int getEventQueueLength()
@@ -130,7 +126,7 @@ final class FacilityData
 
 	public final void decrementEventQueueLength()
 	{
-		eventQueueLength++;
+		eventQueueLength--;
 	}
 
 	public final EventDescriptor getHeadEventDescriptor()
@@ -200,7 +196,7 @@ final class FacilityData
 
 	public final void increaseTotalQueueingTime(double value)
 	{
-		totalQueueingTime = value;
+		totalQueueingTime += value;
 	}
 
 	@Override

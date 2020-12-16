@@ -123,7 +123,7 @@ final class FacilityServer
 
 	public final void increaseTotalBusyTime(double value)
 	{
-		totalBusyTime += totalBusyTime;
+		totalBusyTime += value;
 	}
 
 	@Override

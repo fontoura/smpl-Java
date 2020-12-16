@@ -115,7 +115,7 @@ public final class Smpl
 	 *
 	 * @param s The model name.
 	 */
-	public Smpl(String s)
+	public void init(String s)
 	{
 		if (s == null)
 		{
@@ -649,13 +649,13 @@ public final class Smpl
 		facilityData.incrementEventQueueLength();
 		facilityData.setTimeOfLastChange(clock);
 
-		EventDescriptor eventIdentifier = get_elm();
-		eventIdentifier.setToken(token);
-		eventIdentifier.setEventCode(ev);
-		eventIdentifier.setRemainingTimeToEvent(te);
-		eventIdentifier.setPriority(pri);
+		EventDescriptor eventDescriptor = get_elm();
+		eventDescriptor.setToken(token);
+		eventDescriptor.setEventCode(ev);
+		eventDescriptor.setRemainingTimeToEvent(te);
+		eventDescriptor.setPriority(pri);
 
-		enlist_facilityEvq(facilityData, eventIdentifier);
+		enlist_facilityEvq(facilityData, eventDescriptor);
 	}
 
 	/**
@@ -1004,7 +1004,7 @@ public final class Smpl
 	}
 
 	/**
-	 * Generate an report message on the output stream.
+	 * Generates a report message on the output stream.
 	 */
 	public final void report()
 	{
@@ -1016,14 +1016,14 @@ public final class Smpl
 		else
 		{
 			outputStream.println();
-			outputStream.println(String.format("%s", "smpl SIMULATION REPORT"));
+			outputStream.println("smpl SIMULATION REPORT");
 			outputStream.println();
 			outputStream.println();
 
 			outputStream.println(String.format("MODEL %-56sTIME: %11.3f", mname(), clock));
 			outputStream.println(String.format("%68s%11.3f", "INTERVAL: ", clock - start));
 			outputStream.println();
-			outputStream.println(String.format("MEAN BUSY     MEAN QUEUE        OPERATION COUNTS"));
+			outputStream.println("MEAN BUSY     MEAN QUEUE        OPERATION COUNTS");
 			outputStream.println(" FACILITY          UTIL.     PERIOD        LENGTH     RELEASE   PREEMPT   QUEUE");
 
 			while (f.hasNext())
@@ -1041,11 +1041,11 @@ public final class Smpl
 				String fn;
 				if (facilityData.getTotalServers() == 1)
 				{
-					fn = String.format("%s", facilityData.getName());
+					fn = facilityData.getName();
 				}
 				else
 				{
-					fn = String.format("%s[%d]", facilityData.getName(), facilityData.getTotalServers());
+					fn = facilityData.getName() + "[" + facilityData.getTotalServers() + "]";
 				}
 
 				outputStream.println(String.format(" %-17s%6.4f %10.3f %13.3f %11d %9d %7d", fn, U(facilityIdentifier), B(facilityIdentifier), Lq(facilityIdentifier), n, facilityData.getPreemptCount(), facilityData.getQueueExitCount()));
