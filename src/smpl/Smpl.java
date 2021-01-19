@@ -273,6 +273,7 @@ public final class Smpl
 	private final void put_elm(EventDescriptor eventDescriptor)
 	{
 		eventDescriptor.setNext(availableEventPoolHead);
+		eventDescriptor.setToken(null);
 		availableEventPoolHead = eventDescriptor;
 	}
 
@@ -399,6 +400,51 @@ public final class Smpl
 		}
 
 		return token;
+	}
+
+	/**
+	 * Reverts the scheduling of an upcoming event based on its event code and token.
+	 *
+	 * @param eventCode The event code.
+	 * @param token An object which identifies the event target.
+	 * @return A boolean indicating if the event was cancelled.
+	 */
+	public final boolean unschedule(int eventCode, Object token)
+	{
+		// search for the event in the event queue.
+		EventDescriptor predEventDescriptor = null;
+		EventDescriptor succEventDescriptor = eventQueueHead;
+		while (succEventDescriptor != null && (succEventDescriptor.getEventCode() != eventCode || !Objects.equals(succEventDescriptor.getToken(), token)))
+		{
+			predEventDescriptor = succEventDescriptor;
+			succEventDescriptor = predEventDescriptor.getNext();
+		}
+
+		// removes the event from the event queue.
+		boolean cancelled = false;
+		if (succEventDescriptor != null)
+		{
+			cancelled = true;
+
+			if (traceEnabled)
+			{
+				msg("UNSCHEDULE EVENT " + succEventDescriptor.getEventCode() + " FOR TOKEN " + token);
+			}
+
+			if (succEventDescriptor == eventQueueHead)
+			{
+				// unlink event
+				eventQueueHead = succEventDescriptor.getNext();
+			}
+			else
+			{
+				// list entry & deallocate it
+				predEventDescriptor.setNext(succEventDescriptor.getNext());
+			}
+			put_elm(succEventDescriptor);
+		}
+
+		return cancelled;
 	}
 
 	/**
