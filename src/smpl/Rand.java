@@ -141,7 +141,7 @@ public final class Rand
 		// [C] if (*q&0x8000) { k++; }
 		// (q is pointer to Hi)
 		k = getShort1(Hi) << 1;
-		if (0 != (getShort1(Hi) & 0x8000))
+		if (0 != (getShort0(Hi) & 0x8000))
 		{
 			k++;
 		}
