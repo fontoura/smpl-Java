@@ -25,7 +25,7 @@ package smpl;
 /**
  * A Java implementation of the pseudo-random number generator of 'smpl'.
  * <p>
- * This class is part of the a Java implementation of the discrete event simulation environment 'smpl'. The Java implementation is based on the C implementation of 'smpl' version 1.10, which was developed by Myron H. MacDougall and released on October 22, 1987. This version is also based on the C version with bugfixes provided by Elias Procópio Duarte Júnior, and on the C version provided by Teemu Kerola.
+ * This class is part of the a Java implementation of the discrete event simulation environment 'smpl'. The Java implementation is based on the C implementation of 'smpl' version 1.10, which was developed by Myron H. MacDougall and released on October 22, 1987. This version is also based on the C version with bugfixes provided by Elias Procï¿½pio Duarte Jï¿½nior, and on the C version provided by Teemu Kerola.
  *
  * @author Felipe Michels Fontoura
  */
@@ -93,7 +93,7 @@ public final class Rand
 	}
 
 	/**
-	 * Generates a pseudo-random value from a normal distribution ranging from 0 to 1.
+	 * Generates a pseudo-random value from an uniform distribution ranging from 0 to 1.
 	 *
 	 * @return The generated pseudo-random number.
 	 */
@@ -170,13 +170,13 @@ public final class Rand
 	{
 		if (a > b)
 		{
-			throw new IllegalArgumentException("For the normal pseudo-random generator, the lower boundary must not exceed the higher boundary");
+			throw new IllegalArgumentException("For the uniform pseudo-random generator, the lower boundary must not exceed the higher boundary");
 		}
 		return (a + (b - a) * ranf());
 	}
 
 	/**
-	 * Generates a pseudo-random integer in a range from a uniform distribution.
+	 * Generates a pseudo-random integer in a range from an uniform distribution.
 	 *
 	 * @param i The lower boundary, inclusive.
 	 * @param n The upper boundary, inclusive.
@@ -186,7 +186,7 @@ public final class Rand
 	{
 		if (i > n)
 		{
-			throw new IllegalArgumentException("For the normal pseudo-random generator, the lower boundary must not exceed the higher boundary");
+			throw new IllegalArgumentException("For the uniform pseudo-random generator, the lower boundary must not exceed the higher boundary");
 		}
 		int m = n - i;
 		int d = (int) ((m + 1.0) * ranf());
