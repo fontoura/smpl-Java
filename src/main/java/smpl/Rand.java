@@ -25,7 +25,7 @@ package smpl;
 /**
  * A Java implementation of the pseudo-random number generator of 'smpl'.
  * <p>
- * This class is part of the a Java implementation of the discrete event simulation environment 'smpl'. The Java implementation is based on the C implementation of 'smpl' version 1.10, which was developed by Myron H. MacDougall and released on October 22, 1987. This version is also based on the C version with bugfixes provided by Elias Proc�pio Duarte J�nior, and on the C version provided by Teemu Kerola.
+ * This class is part of the a Java implementation of the discrete event simulation environment 'smpl'. The Java implementation is based on the C implementation of 'smpl' version 1.10, which was developed by Myron H. MacDougall and released on October 22, 1987. This version is also based on the C version with bugfixes provided by Elias Procópio Duarte Júnior, and on the C version provided by Teemu Kerola.
  *
  * @author Felipe Michels Fontoura
  */
